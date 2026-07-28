@@ -1,0 +1,1229 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Lightwheel, NRP, STM and ICT shared vision for airport ULD automation and real-robot deployment.">
+  <title>Lightwheel + NRP + STM + ICT | Real-Robot Deployment</title>
+  <style>
+    :root {
+      --ink: #f7f6fb;
+      --muted: #aaa7ba;
+      --paper: #08070d;
+      --white: #12101d;
+      --line: #302b45;
+      --green: #65d2c0;
+      --green-soft: #142923;
+      --coral: #ff7c68;
+      --coral-soft: #351c24;
+      --gold: #f1ca74;
+      --gold-soft: #302817;
+      --blue: #7da9ff;
+      --blue-soft: #17233d;
+      --violet: #a977ff;
+      --violet-soft: #211537;
+      --max: 1320px;
+      --nav-h: 72px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+      letter-spacing: 0;
+    }
+
+    a { color: inherit; }
+    img, video { display: block; width: 100%; }
+    button { font: inherit; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      height: var(--nav-h);
+      background: rgba(8, 7, 13, 0.9);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(14px);
+    }
+
+    .topbar-inner {
+      width: min(calc(100% - 40px), var(--max));
+      height: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 760;
+      text-transform: uppercase;
+    }
+
+    .brand-mark { color: var(--violet); font-size: 17px; }
+
+    .nav-links { display: flex; gap: 6px; margin-left: auto; }
+    .nav-links a {
+      padding: 8px 11px;
+      border-radius: 4px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 650;
+      white-space: nowrap;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--ink); background: #201b30; }
+
+    .partner-logo {
+      width: 150px;
+      height: 44px;
+      flex: 0 0 auto;
+      object-fit: contain;
+    }
+
+    .mobile-nav { display: none; }
+    .mobile-nav summary {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-content: center;
+      gap: 4px;
+      cursor: pointer;
+      list-style: none;
+    }
+    .mobile-nav summary::-webkit-details-marker { display: none; }
+    .mobile-nav summary span { width: 18px; height: 2px; background: var(--ink); }
+    .mobile-nav-menu {
+      position: absolute;
+      top: 46px;
+      left: 0;
+      width: 205px;
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #12101d;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.38);
+    }
+    .mobile-nav-menu a {
+      display: block;
+      padding: 11px 12px;
+      border-radius: 4px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .mobile-nav-menu a:hover { color: var(--ink); background: #201b30; }
+
+    .progress {
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--violet);
+    }
+
+    .shell { width: min(calc(100% - 40px), var(--max)); margin: 0 auto; }
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--coral);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .collab-hero {
+      position: relative;
+      min-height: min(760px, calc(100vh - var(--nav-h)));
+      display: flex;
+      align-items: flex-end;
+      padding: clamp(78px, 11vh, 132px) 0 54px;
+      overflow: hidden;
+      isolation: isolate;
+      background: #07060c url("assets/style-background.png") center / cover no-repeat;
+      border-bottom: 1px solid var(--line);
+      scroll-margin-top: var(--nav-h);
+    }
+
+    .collab-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: rgba(3, 3, 8, 0.34);
+    }
+
+    .hero-copy { max-width: 1080px; }
+    .hero-kicker {
+      margin: 0 0 22px;
+      color: #d8c6ff;
+      font-size: 12px;
+      font-weight: 780;
+      text-transform: uppercase;
+    }
+
+    .collab-hero h1 {
+      max-width: 1120px;
+      margin: 0;
+      font-size: clamp(44px, 6.8vw, 86px);
+      line-height: 0.98;
+      font-weight: 760;
+    }
+
+    .hero-subtitle {
+      margin: 24px 0 0;
+      color: #d8d5e2;
+      font-size: clamp(20px, 2.4vw, 30px);
+      font-weight: 520;
+    }
+
+    .researchers {
+      max-width: 820px;
+      margin-top: clamp(48px, 8vh, 82px);
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      border-top: 1px solid rgba(255, 255, 255, 0.28);
+    }
+
+    .researcher {
+      padding: 22px 28px 0 0;
+      border-right: 1px solid rgba(255, 255, 255, 0.22);
+    }
+    .researcher + .researcher { padding-left: 28px; border-right: 0; }
+    .researcher b { display: block; margin-bottom: 8px; font-size: 18px; }
+    .researcher span { display: block; color: #c9c5d4; font-size: 13px; }
+
+    .new-section {
+      padding: 96px 0;
+      border-bottom: 1px solid var(--line);
+      scroll-margin-top: var(--nav-h);
+    }
+    .new-section.alt { background: #0d0a16; }
+
+    .part-head {
+      display: grid;
+      grid-template-columns: 86px minmax(0, 1fr) minmax(260px, 0.42fr);
+      gap: 34px;
+      align-items: start;
+      margin-bottom: 54px;
+    }
+    .part-number { color: var(--violet); font-size: 15px; font-weight: 800; }
+    .part-head h2 {
+      max-width: 800px;
+      margin: 0 0 18px;
+      font-size: clamp(34px, 4.8vw, 60px);
+      line-height: 1.04;
+    }
+    .part-head p { margin: 0; color: var(--muted); font-size: 18px; }
+
+    .part-note {
+      padding-left: 18px;
+      border-left: 3px solid var(--violet);
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .part-note strong { display: block; margin-bottom: 7px; color: var(--ink); font-size: 17px; }
+
+    .uld-visual {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+      gap: 34px;
+      align-items: stretch;
+      margin-bottom: 46px;
+    }
+    .uld-process-image {
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+    }
+    .uld-process-image img {
+      height: 100%;
+      min-height: 390px;
+      object-fit: contain;
+    }
+
+    .robot-config {
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #151221;
+    }
+    .robot-config h3 { margin-bottom: 24px; font-size: 23px; }
+    .config-row {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 12px;
+      padding: 15px 0;
+      border-top: 1px solid var(--line);
+    }
+    .config-row b { display: block; margin-bottom: 3px; font-size: 14px; }
+    .config-row p { margin: 0; color: var(--muted); font-size: 13px; }
+    .config-index { color: var(--violet); font-size: 12px; font-weight: 800; }
+
+    .uld-steps {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .uld-step {
+      min-height: 174px;
+      padding: 22px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: #100e18;
+    }
+    .uld-step:nth-child(4n) { border-right: 0; }
+    .uld-step:nth-child(n + 5) { border-bottom: 0; }
+    .uld-step.automation { background: var(--violet-soft); }
+    .uld-step small { display: block; margin-bottom: 13px; color: var(--violet); font-weight: 800; }
+    .uld-step h3 { margin-bottom: 8px; font-size: 16px; line-height: 1.25; }
+    .uld-step p { margin: 0; color: var(--muted); font-size: 12px; }
+    .automation-tag {
+      display: inline-flex;
+      margin-top: 13px;
+      color: #d7c4ff;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .capability-block + .capability-block {
+      margin-top: 90px;
+      padding-top: 74px;
+      border-top: 1px solid var(--line);
+    }
+    .capability-head {
+      display: grid;
+      grid-template-columns: 72px minmax(0, 1fr);
+      gap: 22px;
+      margin-bottom: 34px;
+    }
+    .capability-index { color: var(--violet); font-size: 13px; font-weight: 800; }
+    .capability-head h3 { margin-bottom: 10px; font-size: clamp(28px, 3.7vw, 46px); }
+    .capability-head p { max-width: 850px; margin: 0; color: var(--muted); font-size: 17px; }
+
+    .task-fidelity {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1px;
+      margin-bottom: 40px;
+      border: 1px solid var(--line);
+      background: var(--line);
+    }
+    .task-fidelity div { min-height: 164px; padding: 24px; background: #151221; }
+    .task-fidelity small { color: var(--violet); font-weight: 800; }
+    .task-fidelity h4 { margin: 12px 0 8px; font-size: 16px; }
+    .task-fidelity p { margin: 0; color: var(--muted); font-size: 12px; }
+
+    .asset-marquee {
+      overflow: hidden;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: #0b0912;
+    }
+    .asset-track {
+      width: max-content;
+      display: flex;
+      animation: asset-scroll 54s linear infinite;
+    }
+    .asset-marquee:hover .asset-track { animation-play-state: paused; }
+    .asset-card {
+      margin: 0;
+      width: 280px;
+      height: 310px;
+      flex: 0 0 auto;
+      display: grid;
+      grid-template-rows: 236px auto;
+      padding: 16px 18px 14px;
+      border-right: 1px solid var(--line);
+    }
+    .asset-card img { height: 100%; object-fit: contain; }
+    .asset-card span { align-self: end; font-size: 13px; font-weight: 700; }
+    .asset-card small { display: block; margin-top: 3px; color: var(--muted); font-size: 10px; }
+    @keyframes asset-scroll { to { transform: translateX(-50%); } }
+
+    .sim-pair, .rj45-media {
+      display: grid;
+      gap: 18px;
+    }
+    .sim-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .rj45-media { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .sim-panel {
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #050507;
+    }
+    .sim-panel video, .sim-panel img {
+      aspect-ratio: 16 / 10;
+      height: auto;
+      object-fit: contain;
+      background: #050507;
+    }
+    .sim-panel p { margin: 0; padding: 13px 15px; color: var(--muted); font-size: 12px; }
+    .sim-panel strong { color: var(--ink); }
+
+    .rj45-example {
+      margin-top: 42px;
+      display: grid;
+      grid-template-columns: minmax(240px, 0.34fr) minmax(0, 0.66fr);
+      gap: 34px;
+      align-items: start;
+    }
+    .rj45-example h4 { margin: 0 0 16px; font-size: 24px; }
+    .rj45-points { margin: 0; padding: 0; list-style: none; counter-reset: rj45; }
+    .rj45-points li {
+      counter-increment: rj45;
+      padding: 13px 0;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .rj45-points li::before {
+      content: "0" counter(rj45);
+      display: inline-block;
+      width: 34px;
+      color: var(--violet);
+      font-weight: 800;
+    }
+
+    .overview {
+      min-height: calc(100vh - var(--nav-h));
+      padding: clamp(44px, 7vh, 78px) 0 54px;
+      background: var(--white);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .overview-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(290px, 0.65fr);
+      gap: 60px;
+      align-items: end;
+      margin-bottom: clamp(48px, 8vh, 88px);
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      max-width: 850px;
+      margin-bottom: 0;
+      font-size: clamp(42px, 6.2vw, 78px);
+      line-height: 0.98;
+      font-weight: 780;
+    }
+
+    .lede {
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+    .timeline-scroll { overflow-x: auto; padding: 2px 2px 14px; }
+    .timeline {
+      position: relative;
+      min-width: 920px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 27px;
+      left: 52px;
+      right: 52px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--green), var(--gold) 50%, var(--coral));
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-top: 66px;
+    }
+
+    .timeline-item h2 a { text-decoration: none; }
+
+    .timeline-node {
+      position: absolute;
+      top: 9px;
+      left: 28px;
+      width: 38px;
+      height: 38px;
+      border: 7px solid var(--white);
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 1px var(--line);
+    }
+    .timeline-item:nth-child(2) .timeline-node { background: var(--gold); }
+    .timeline-item:nth-child(3) .timeline-node { background: var(--coral); }
+
+    .timeline-kicker { color: var(--muted); font-size: 12px; font-weight: 750; text-transform: uppercase; }
+    .timeline h2 { margin: 8px 0 10px; font-size: 22px; line-height: 1.15; }
+    .timeline p { max-width: 330px; margin-bottom: 14px; color: var(--muted); font-size: 14px; }
+    .timeline-outcome { font-size: 13px; font-weight: 780; text-decoration: none; }
+    .timeline-outcome::after { content: "  >"; color: var(--coral); }
+
+    .axis {
+      margin-top: 34px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--line);
+    }
+    .axis div { padding: 12px 12px 0 0; color: var(--muted); font-size: 12px; }
+    .axis strong { display: block; color: var(--ink); font-size: 13px; }
+
+    .section { padding: 90px 0; border-bottom: 1px solid var(--line); scroll-margin-top: var(--nav-h); }
+    .section.white { background: var(--white); }
+    .section-head {
+      display: grid;
+      grid-template-columns: 160px minmax(0, 1fr) minmax(260px, 0.45fr);
+      gap: 40px;
+      align-items: start;
+      margin-bottom: 56px;
+    }
+
+    .stage-index { font-size: 56px; line-height: 1; font-weight: 780; color: var(--line); }
+    .section h2 { margin-bottom: 18px; font-size: clamp(32px, 4vw, 50px); line-height: 1.05; }
+    .section-intro { max-width: 720px; margin-bottom: 0; color: var(--muted); font-size: 19px; }
+
+    .verdict {
+      border-left: 4px solid var(--green);
+      padding: 2px 0 2px 18px;
+    }
+    .stage-2 .verdict { border-color: var(--gold); }
+    .stage-3 .verdict { border-color: var(--coral); }
+    .verdict span { display: block; color: var(--muted); font-size: 11px; font-weight: 800; text-transform: uppercase; }
+    .verdict strong { display: block; margin-top: 7px; font-size: 20px; line-height: 1.2; }
+
+    .subhead { margin: 0 0 20px; font-size: 14px; font-weight: 800; text-transform: uppercase; }
+    .pipeline {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      margin-bottom: 58px;
+      border: 1px solid var(--line);
+      background: var(--white);
+    }
+    .pipeline-step { position: relative; min-height: 138px; padding: 22px 22px 18px; border-right: 1px solid var(--line); }
+    .pipeline-step:last-child { border-right: 0; }
+    .pipeline-step:not(:last-child)::after {
+      content: ">";
+      position: absolute;
+      z-index: 2;
+      top: 53px;
+      right: -10px;
+      width: 20px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      background: var(--white);
+      font-weight: 900;
+    }
+    .pipeline-step b { display: block; margin-bottom: 10px; font-size: 13px; }
+    .pipeline-step p { margin: 0; color: var(--muted); font-size: 13px; }
+    .pipeline-step em { display: block; margin-bottom: 12px; color: var(--coral); font-size: 11px; font-style: normal; font-weight: 800; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: start; }
+    .three-col { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+    .content-band { margin-top: 62px; }
+
+    .media-frame {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #e9ece8;
+    }
+    .media-frame img, .media-frame video {
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      background: #e9ece8;
+    }
+    .video-showcase video { aspect-ratio: 16 / 9; object-fit: contain; background: #111; }
+    .media-frame.diagram img { aspect-ratio: auto; object-fit: contain; background: white; padding: 12px; }
+    .caption { padding: 12px 14px 14px; color: var(--muted); background: var(--white); font-size: 12px; }
+    .caption strong { color: var(--ink); }
+
+    .point-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+    .point-list li {
+      display: grid;
+      grid-template-columns: 26px 1fr;
+      gap: 13px;
+      padding: 17px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .point-list .n { color: var(--coral); font-size: 12px; font-weight: 820; }
+    .point-list b { display: block; margin-bottom: 3px; font-size: 14px; }
+    .point-list p { margin: 0; color: var(--muted); font-size: 13px; }
+
+    .evidence {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 42px;
+      padding: 34px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .evidence blockquote { margin: 0; font-size: 25px; line-height: 1.35; font-weight: 650; }
+    .evidence p { margin: 0; color: var(--muted); font-size: 13px; }
+
+    .paper-line {
+      display: grid;
+      grid-template-columns: 110px 1fr auto;
+      gap: 20px;
+      align-items: center;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .paper-line:first-child { border-top: 1px solid var(--line); }
+    .paper-line .tag { color: var(--muted); font-size: 11px; font-weight: 800; text-transform: uppercase; }
+    .paper-line h3 { margin: 0 0 4px; font-size: 15px; line-height: 1.25; }
+    .paper-line p { margin: 0; color: var(--muted); font-size: 12px; }
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding: 7px 11px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--white);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 760;
+    }
+    .source-link:hover { border-color: var(--ink); }
+
+    .architecture {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      margin: 26px 0 54px;
+      border: 1px solid var(--line);
+      background: var(--white);
+    }
+    .architecture > div { min-height: 220px; padding: 28px; border-right: 1px solid var(--line); }
+    .architecture > div:last-child { border-right: 0; }
+    .architecture small { color: var(--coral); font-weight: 800; }
+    .architecture h3 { margin: 12px 0; font-size: 18px; }
+    .architecture p { margin-bottom: 0; color: var(--muted); font-size: 13px; }
+    .architecture .stack { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 6px; }
+    .architecture .stack span { padding: 5px 7px; border: 1px solid var(--line); border-radius: 3px; font-size: 11px; }
+
+    .truth-box {
+      margin-top: 52px;
+      padding: 28px 32px;
+      color: #fff;
+      background: #000;
+      border: 1px solid #2e2940;
+      display: grid;
+      grid-template-columns: 0.7fr 1.3fr;
+      gap: 44px;
+      align-items: center;
+    }
+    .truth-box h3 { margin: 0; font-size: 25px; }
+    .truth-box p { margin: 0; color: #e4e1eb; font-size: 14px; }
+
+    .rollout-note {
+      grid-column: span 2;
+      min-height: 100%;
+      display: flex;
+      align-items: center;
+      padding: clamp(28px, 5vw, 58px);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--violet);
+      border-radius: 6px;
+      background: #120e22;
+    }
+    .rollout-note p {
+      max-width: 760px;
+      margin: 0;
+      color: #fff;
+      font-size: clamp(22px, 2.6vw, 34px);
+      line-height: 1.35;
+      font-weight: 650;
+    }
+
+    .roadmap {
+      padding: 90px 0 110px;
+      color: #fff;
+      background: #08070d url("assets/roadmap-background.png") center / 100% 100% no-repeat;
+      scroll-margin-top: var(--nav-h);
+    }
+    .roadmap .eyebrow { color: #ffe0a3; }
+    .roadmap h2 { max-width: 800px; margin-bottom: 52px; font-size: clamp(32px, 4vw, 50px); line-height: 1.05; }
+    .roadmap-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid rgba(255, 255, 255, 0.42); }
+    .roadmap-step { padding: 28px 32px 34px 0; border-right: 1px solid rgba(255, 255, 255, 0.34); }
+    .roadmap-step + .roadmap-step { padding-left: 32px; }
+    .roadmap-step:last-child { border-right: 0; }
+    .roadmap-step time { color: #ffe0a3; font-size: 12px; font-weight: 800; }
+    .roadmap-step h3 { margin: 12px 0; color: #fff; font-size: 20px; }
+    .roadmap-step p { color: #f0eafb; font-size: 14px; }
+    .roadmap-step ul { margin: 0; padding-left: 18px; color: #fff; font-size: 13px; }
+    .roadmap-step li { margin-bottom: 8px; }
+
+    .decision {
+      margin-top: 50px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+      align-items: center;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255, 255, 255, 0.42);
+    }
+    .decision p { max-width: 800px; margin: 0; color: #fff; font-size: 18px; }
+    .decision strong { color: #fff; }
+    .date-pill { padding: 9px 12px; border: 1px solid rgba(255, 255, 255, 0.58); border-radius: 4px; color: #fff; font-size: 12px; }
+
+    footer { padding: 26px 0; color: var(--muted); background: #111815; font-size: 11px; }
+    footer .shell { display: flex; justify-content: space-between; gap: 20px; }
+
+    @media (max-width: 980px) {
+      .part-head { grid-template-columns: 60px minmax(0, 1fr); }
+      .part-note { grid-column: 2; }
+      .uld-visual, .rj45-example { grid-template-columns: 1fr; }
+      .uld-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .uld-step:nth-child(2n) { border-right: 0; }
+      .uld-step:nth-child(4n) { border-right: 0; }
+      .uld-step:nth-child(n + 5) { border-bottom: 1px solid var(--line); }
+      .uld-step:nth-child(n + 7) { border-bottom: 0; }
+      .task-fidelity { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .overview-head, .section-head { grid-template-columns: 1fr; gap: 24px; }
+      .stage-index { font-size: 36px; }
+      .pipeline { grid-template-columns: 1fr 1fr; }
+      .pipeline-step { border-bottom: 1px solid var(--line); }
+      .pipeline-step:nth-child(2n) { border-right: 0; }
+      .pipeline-step::after { display: none !important; }
+      .pipeline-step:last-child { grid-column: 1 / -1; border-bottom: 0; }
+      .two-col, .evidence { grid-template-columns: 1fr; }
+      .three-col { grid-template-columns: 1fr 1fr; }
+      .rollout-note { grid-column: span 1; }
+      .architecture { grid-template-columns: 1fr; }
+      .architecture > div { min-height: 0; border-right: 0; border-bottom: 1px solid var(--line); }
+      .architecture > div:last-child { border-bottom: 0; }
+      .roadmap-grid { grid-template-columns: 1fr; }
+      .roadmap-step, .roadmap-step + .roadmap-step { padding: 25px 0; border-right: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.34); }
+    }
+
+    @media (max-width: 720px) {
+      :root { --nav-h: 56px; }
+      .shell, .topbar-inner { width: min(calc(100% - 28px), var(--max)); }
+      .nav-links { display: none; }
+      .brand { display: none; }
+      .mobile-nav { position: relative; display: block; }
+      .partner-logo { width: 118px; height: 36px; order: 2; }
+      .collab-hero { min-height: calc(100vh - var(--nav-h)); padding: 70px 0 38px; }
+      .collab-hero h1 { font-size: 42px; }
+      .researchers { grid-template-columns: 1fr; }
+      .researcher { border-right: 0; }
+      .researcher + .researcher { padding-left: 0; }
+      .new-section { padding: 68px 0; }
+      .part-head { grid-template-columns: 1fr; gap: 14px; }
+      .part-note { grid-column: auto; }
+      .uld-process-image img { min-height: 0; }
+      .robot-config { padding: 22px; }
+      .uld-steps, .task-fidelity, .sim-pair, .rj45-media { grid-template-columns: 1fr; }
+      .uld-step { min-height: 0; border-right: 0; border-bottom: 1px solid var(--line) !important; }
+      .uld-step:last-child { border-bottom: 0 !important; }
+      .capability-head { grid-template-columns: 1fr; gap: 8px; }
+      .asset-card { width: 238px; height: 278px; grid-template-rows: 204px auto; }
+      .overview { padding-top: 38px; }
+      .overview-head { margin-bottom: 38px; }
+      h1 { font-size: 43px; }
+      .lede { font-size: 16px; }
+      .axis { grid-template-columns: 1fr 1fr; }
+      .section { padding: 68px 0; }
+      .section-intro { font-size: 17px; }
+      .pipeline, .three-col { grid-template-columns: 1fr; }
+      .pipeline-step { border-right: 0; }
+      .pipeline-step:last-child { grid-column: auto; }
+      .paper-line { grid-template-columns: 1fr; gap: 7px; }
+      .paper-line .source-link { justify-self: start; }
+      .truth-box, .decision { grid-template-columns: 1fr; }
+      .truth-box { padding: 24px; }
+      footer .shell { flex-direction: column; }
+    }
+
+    @media print {
+      .topbar { position: static; }
+      .section, .roadmap { break-inside: avoid; }
+      video { display: none; }
+      .source-link::after { content: " (" attr(href) ")"; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .asset-track { animation: none; }
+      .asset-marquee { overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#overview"><span class="brand-mark">+</span> Shared Vision &amp; Collaboration</a>
+      <details class="mobile-nav">
+        <summary aria-label="Open navigation" title="Sections"><span></span><span></span><span></span></summary>
+        <div class="mobile-nav-menu">
+          <a href="#uld-scope">01 ULD Scope</a>
+          <a href="#lightwheel">02 Lightwheel</a>
+          <a href="#deployment">03 Deployment</a>
+        </div>
+      </details>
+      <nav class="nav-links" aria-label="Report sections">
+        <a href="#uld-scope">01 ULD Scope</a>
+        <a href="#lightwheel">02 Lightwheel</a>
+        <a href="#deployment">03 Deployment</a>
+      </nav>
+      <img class="partner-logo" src="assets/lightwheel-logo.png" alt="Lightwheel">
+    </div>
+    <div class="progress" aria-hidden="true"></div>
+  </header>
+
+  <main>
+    <section class="collab-hero" id="overview">
+      <div class="shell">
+        <div class="hero-copy">
+          <p class="hero-kicker">Airport ULD automation / July 2026</p>
+          <h1>Lightwheel + NRP + STM + ICT Shared Vision &amp; Collaboration</h1>
+          <p class="hero-subtitle">Real-robot deployment part</p>
+        </div>
+        <div class="researchers" aria-label="Researchers">
+          <div class="researcher">
+            <b>Louis.Lian</b>
+            <span>VP, Partnership &amp; Strategy</span>
+            <span>Product Lead, RoboFinals</span>
+          </div>
+          <div class="researcher">
+            <b>Jiajie.Xu</b>
+            <span>Strategy &amp; PM intern</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="new-section" id="uld-scope">
+      <div class="shell">
+        <div class="part-head">
+          <div class="part-number">PART 01</div>
+          <div>
+            <h2>Airport ULD Task &amp; Robot Automation Scope</h2>
+            <p>The ULD loading cycle contains eight connected operations. The initial deployment focuses automation on in-cargo movement, precise alignment, lock engagement and verification while preserving human oversight at the aircraft interface and final safety checks.</p>
+          </div>
+          <div class="part-note">
+            <strong>Automation target</strong>
+            Reduce manpower dependence, improve operational safety and enable progressively autonomous cargo loading.
+          </div>
+        </div>
+
+        <div class="uld-visual">
+          <figure class="uld-process-image">
+            <img src="assets/uld-process.png" alt="Eight-step airport ULD loading process">
+          </figure>
+          <aside class="robot-config">
+            <p class="eyebrow">Proposed robot configuration</p>
+            <h3>One embodied system, four verified actions</h3>
+            <div class="config-row"><span class="config-index">01</span><div><b>Realman RM-65 / RM-75 arm</b><p>Reach and payload for joystick operation, fine positioning and CLS lock interaction.</p></div></div>
+            <div class="config-row"><span class="config-index">02</span><div><b>RGB-D + AI perception</b><p>Estimate ULD pose, rail alignment, lock state, clearance and surrounding obstacles.</p></div></div>
+            <div class="config-row"><span class="config-index">03</span><div><b>Force / tactile feedback</b><p>Validate contact, insertion, lock engagement and abnormal resistance at the end effector.</p></div></div>
+            <div class="config-row"><span class="config-index">04</span><div><b>Newton + SimReady digital twin</b><p>Rehearse aircraft variants, material contacts and failure cases before real-robot trials.</p></div></div>
+          </aside>
+        </div>
+
+        <div class="uld-steps" aria-label="Eight ULD process steps">
+          <article class="uld-step"><small>01 / HUMAN-LED</small><h3>Transfer ULD to Aircraft Interface</h3><p>Move the ULD from high loader to the aircraft ball-mat or roller-track interface.</p></article>
+          <article class="uld-step"><small>02 / SHARED</small><h3>Initial Positioning</h3><p>Pre-position cargo from the loading plan and activate powered rollers.</p></article>
+          <article class="uld-step automation"><small>03 / ROBOT</small><h3>ULD Movement to Assigned Position</h3><p>Operate the joystick, control travel and monitor rail clearance inside the compartment.</p><span class="automation-tag">Automation priority</span></article>
+          <article class="uld-step automation"><small>04 / ROBOT</small><h3>Fine Alignment &amp; Adjustment</h3><p>Align the ULD to designated lock locations with perception-guided forward/backward control.</p><span class="automation-tag">Automation priority</span></article>
+          <article class="uld-step automation"><small>05 / ROBOT</small><h3>Engage CLS Locks</h3><p>Interact with cargo loading system locks to secure the ULD in place.</p><span class="automation-tag">Automation priority</span></article>
+          <article class="uld-step automation"><small>06 / ROBOT</small><h3>Lock Verification</h3><p>Confirm full engagement, restraint and correct ULD position with vision and force evidence.</p><span class="automation-tag">Automation priority</span></article>
+          <article class="uld-step"><small>07 / ORCHESTRATED</small><h3>Repeat for Subsequent ULDs</h3><p>Sequence steps 1–6 according to the load plan while maintaining access and weight balance.</p></article>
+          <article class="uld-step"><small>08 / HUMAN OVERSIGHT</small><h3>Final Securing &amp; Checks</h3><p>Recheck locks, clearance and obstruction status before operational sign-off.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="new-section alt" id="lightwheel">
+      <div class="shell">
+        <div class="part-head">
+          <div class="part-number">PART 02</div>
+          <div>
+            <h2>What Lightwheel Can Provide</h2>
+            <p>A physics-grounded asset and evaluation stack for turning the ULD workflow into measurable robot capability: build the right digital twins, score the task in simulation and predict real-world readiness.</p>
+          </div>
+          <div class="part-note">
+            <strong>Delivery principle</strong>
+            Every asset and metric maps to a concrete ULD action, contact or safety decision.
+          </div>
+        </div>
+
+        <div class="capability-block">
+          <div class="capability-head">
+            <span class="capability-index">02.1</span>
+            <div>
+              <h3>Newton + SimReady Assets</h3>
+              <p>Higher physical fidelity where the robot actually touches the aircraft system: joystick controls, panels, CLS locks, cargo-area geometry and the manipulator itself.</p>
+            </div>
+          </div>
+
+          <div class="task-fidelity">
+            <div><small>POSITION</small><h4>Joystick &amp; panel interaction</h4><p>Model detents, travel limits, switch states and the force profile required for A330/A350/B777/B787 control interfaces.</p></div>
+            <div><small>CONTACT</small><h4>Rail and ULD collision</h4><p>Capture compartment geometry, roller tracks, guide rails, ULD clearances and material friction during movement and alignment.</p></div>
+            <div><small>SECURE</small><h4>Latch deformation</h4><p>Represent A330/A350/B777/B787 latch geometry, compliance, interference and engagement tolerances.</p></div>
+            <div><small>VERIFY</small><h4>Locking mechanics</h4><p>Connect visual state, tactile response and reaction force to a physically meaningful locked/unlocked result.</p></div>
+          </div>
+
+          <div class="asset-marquee" aria-label="Simulation asset catalogue">
+            <div class="asset-track">
+              <figure class="asset-card"><img src="assets/joystick-a350.png" alt="A350 joystick"><figcaption><span>A350 Joystick</span><small>ULD movement control</small></figcaption></figure>
+              <figure class="asset-card"><img src="assets/joystick-b777.png" alt="B777 joystick"><figcaption><span>B777 Joystick</span><small>ULD movement control</small></figcaption></figure>
+              <figure class="asset-card"><img src="assets/joystick-b787.png" alt="B787 joystick"><figcaption><span>B787 Joystick</span><small>ULD movement control</small></figcaption></figure>
+              <figure class="asset-card"><img src="assets/control-panel-a330.png" alt="A330 control panel"><figcaption><span>A330 Control Panel</span><small>Control interface</small></figcaption></figure>
+              <figure class="asset-card"><img src="assets/control-panel-a350.png" alt="A350 control panel"><figcaption><span>A350 Control Panel</span><small>Control interface</small></figcaption></figure>
+              <figure class="asset-card"><img src="assets/control-panel-b777.png" alt="B777 control panel"><figcaption><span>B777 Control Panel</span><small>Control interface</small></figcaption></figure>
+              <figure class="asset-card"><img src="assets/control-panel-b787.png" alt="B787 control panel"><figcaption><span>B787 Control Panel</span><small>Control interface</small></figcaption></figure>
+              <figure class="asset-card"><img src="assets/latch-a330.png" alt="A330 latch"><figcaption><span>A330 Latch</span><small>CLS lock engagement</small></figcaption></figure>
+              <figure class="asset-card"><img src="assets/latch-a350.png" alt="A350 latch"><figcaption><span>A350 Latch</span><small>CLS lock engagement</small></figcaption></figure>
+              <figure class="asset-card"><img src="assets/latch-b777.png" alt="B777 latch"><figcaption><span>B777 Latch</span><small>CLS lock engagement</small></figcaption></figure>
+              <figure class="asset-card"><img src="assets/latch-b787.png" alt="B787 latch"><figcaption><span>B787 Latch</span><small>CLS lock engagement</small></figcaption></figure>
+              <figure class="asset-card"><img src="assets/cargo-area.png" alt="Representative aircraft cargo area"><figcaption><span>Representative Cargo Area</span><small>Full-scene digital twin</small></figcaption></figure>
+              <figure class="asset-card"><img src="assets/robot-arm.png" alt="Realman RM-65 or RM-75 robot arm"><figcaption><span>Realman RM-65 / RM-75</span><small>Robot embodiment</small></figcaption></figure>
+            </div>
+          </div>
+        </div>
+
+        <div class="capability-block">
+          <div class="capability-head">
+            <span class="capability-index">02.2</span>
+            <div>
+              <h3>Simulation → RoboFinal</h3>
+              <p>Use simulation scores to predict real-robot performance. The current environment already supports visually and physically rich contact scenarios, enabling consistent benchmark tasks before hardware deployment.</p>
+            </div>
+          </div>
+
+          <div class="sim-pair">
+            <figure class="sim-panel"><video controls muted loop playsinline preload="metadata"><source src="assets/sim1.mp4" type="video/mp4"></video><p><strong>SIM 01</strong> — High-fidelity task environment and robot interaction.</p></figure>
+            <figure class="sim-panel"><video controls muted loop playsinline preload="metadata"><source src="assets/sim2.mp4" type="video/mp4"></video><p><strong>SIM 02</strong> — Repeatable evaluation across contact-rich execution states.</p></figure>
+          </div>
+
+          <div class="rj45-example">
+            <div>
+              <p class="eyebrow">RJ45 benchmark example</p>
+              <h4>Score the physics that controls real success</h4>
+              <ol class="rj45-points">
+                <li>High-Fidelity Collision and Material Modeling</li>
+                <li>Tactile Simulation and Accurate Force Feedback</li>
+                <li>Latch Deformation</li>
+                <li>Locking Mechanics</li>
+              </ol>
+            </div>
+            <div class="rj45-media">
+              <figure class="sim-panel"><video controls muted loop playsinline preload="metadata"><source src="assets/sim3.mp4" type="video/mp4"></video><p><strong>SIM 03</strong> — RJ45 insertion and release dynamics.</p></figure>
+              <figure class="sim-panel"><img src="assets/sim4.png" alt="RJ45 simulation model"><p><strong>SIM 04</strong> — Collision, geometry and latch deformation model.</p></figure>
+              <figure class="sim-panel"><img src="assets/sim5.png" alt="RJ45 force feedback validation chart"><p><strong>SIM 05</strong> — Calibrated axial reaction-force agreement.</p></figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="overview" id="deployment">
+      <div class="shell">
+        <div class="overview-head">
+          <div>
+            <p class="eyebrow">Part 03 / Deployment strategy / 2026</p>
+            <h1>Real Robot Deployment, in Three Stages</h1>
+          </div>
+          <p class="lede">Move from a deterministic demo stack, through a hierarchical system with emerging generalization, toward an end-to-end agent that can imagine consequences before acting.</p>
+        </div>
+
+        <div class="timeline-scroll" aria-label="Technology evolution timeline">
+          <div class="timeline">
+            <div class="timeline-item">
+              <span class="timeline-node"></span>
+              <span class="timeline-kicker">Stage 01 / Deploy now</span>
+              <h2><a href="#stage-1">Small Models + Human Orchestration</a></h2>
+              <p>Closed-set detection, point-cloud registration, grasp pose estimation, taught motions and explicit state machines.</p>
+              <a class="timeline-outcome" href="#stage-1">Perfect for a controlled demo show</a>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-node"></span>
+              <span class="timeline-kicker">Stage 02 / Build next</span>
+              <h2><a href="#stage-2">Hierarchical Model + Skill Stack</a></h2>
+              <p>Open-vocabulary perception, context planning, knowledge services, atomic skills and simulation-generated experience.</p>
+              <a class="timeline-outcome" href="#stage-2">Generalization begins to emerge</a>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-node"></span>
+              <span class="timeline-kicker">Stage 03 / Research frontier</span>
+              <h2><a href="#stage-3">End-to-End VLA + World Model</a></h2>
+              <p>Pixels and instructions map to actions while predictive models supply future-state rollouts and data leverage.</p>
+              <a class="timeline-outcome" href="#stage-3">The capability set exists in theory</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="axis" aria-label="Progress dimensions">
+          <div><strong>Control owner</strong>Human to model</div>
+          <div><strong>Task scope</strong>Fixed to open-ended</div>
+          <div><strong>Data source</strong>Calibration to simulation and video</div>
+          <div><strong>Risk profile</strong>Bounded to emergent</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section stage-1" id="stage-1">
+      <div class="shell">
+        <div class="section-head">
+          <div class="stage-index">01</div>
+          <div>
+            <p class="eyebrow">Deterministic deployment</p>
+            <h2>Small Models, Manually Composed</h2>
+            <p class="section-intro">A modular pipeline solves one well-defined perception or motion problem at a time. Humans specify the sequence, teach edge cases and approve transitions. The result is explainable, testable and highly repeatable inside a controlled scene.</p>
+          </div>
+          <div class="verdict"><span>Deployment verdict</span><strong>Production-quality demo show</strong></div>
+        </div>
+
+        <h3 class="subhead">Reference deployment chain</h3>
+        <div class="pipeline">
+          <div class="pipeline-step"><em>01</em><b>Detect</b><p>Fixed classes, fiducials or a constrained visual detector.</p></div>
+          <div class="pipeline-step"><em>02</em><b>Register</b><p>Calibrated RGB-D, ICP or PointNetLK estimates object pose.</p></div>
+          <div class="pipeline-step"><em>03</em><b>Grasp</b><p>AnyGrasp proposes ranked 7-DoF grasp candidates.</p></div>
+          <div class="pipeline-step"><em>04</em><b>Plan</b><p>Collision checking and taught waypoints create a safe path.</p></div>
+          <div class="pipeline-step"><em>05</em><b>Execute</b><p>A state machine runs the human-authored sequence.</p></div>
+        </div>
+
+        <div class="two-col">
+          <div>
+            <h3 class="subhead">What academic systems deploy</h3>
+            <ul class="point-list">
+              <li><span class="n">A</span><div><b>Calibrated workcell</b><p>Known camera extrinsics, bounded lighting and a verified collision model.</p></div></li>
+              <li><span class="n">B</span><div><b>Per-module confidence gates</b><p>Reject uncertain detections and grasps instead of hiding failures downstream.</p></div></li>
+              <li><span class="n">C</span><div><b>Taught recovery branches</b><p>Retry, reobserve, regrasp and return-to-home are explicit behaviors.</p></div></li>
+              <li><span class="n">D</span><div><b>Human-owned task graph</b><p>The operator decides which skill runs next and what success means.</p></div></li>
+            </ul>
+          </div>
+          <div class="media-frame">
+            <img src="assets/anygrasp-objects.gif" alt="AnyGrasp real robot handling varied objects">
+            <p class="caption"><strong>Real robot evidence.</strong> AnyGrasp demonstrates dense grasp perception across varied rigid and deformable objects. Source: official AnyGrasp project.</p>
+          </div>
+        </div>
+
+        <div class="content-band media-frame video-showcase">
+          <video controls muted loop playsinline preload="metadata"><source src="assets/demo in AnyGrasp.mp4" type="video/mp4"></video>
+          <p class="caption"><strong>AnyGrasp demo.</strong> A complete demonstration of dense grasp perception and real-robot execution.</p>
+        </div>
+
+        <div class="content-band evidence">
+          <blockquote>"For a fixed narrative and controlled props, this stage can satisfy the demo-show requirement completely."</blockquote>
+          <p>AnyGrasp reports 93.3% bin-clearing success on more than 300 unseen objects and more than 900 mean picks per hour on a single-arm system. These results support grasp robustness, not open-ended task understanding.</p>
+        </div>
+
+        <div class="content-band">
+          <h3 class="subhead">Representative research</h3>
+          <div class="paper-line"><span class="tag">Grasping</span><div><h3>AnyGrasp: Robust and Efficient Grasp Perception in Spatial and Temporal Domains</h3><p>Fang et al., IEEE Transactions on Robotics, 2023.</p></div><a class="source-link" href="https://arxiv.org/abs/2212.08333" target="_blank" rel="noreferrer">Paper</a></div>
+          <div class="paper-line"><span class="tag">Registration</span><div><h3>PointNetLK: Robust and Efficient Point Cloud Registration Using PointNet</h3><p>Aoki et al., CVPR 2019.</p></div><a class="source-link" href="https://arxiv.org/abs/1903.05711" target="_blank" rel="noreferrer">Paper</a></div>
+          <div class="paper-line"><span class="tag">Teaching</span><div><h3>Intuitive Task-Level Programming by Demonstration Through Semantic Skill Recognition</h3><p>Steinmetz et al., IEEE Robotics and Automation Letters, 2019.</p></div><a class="source-link" href="https://ieeexplore.ieee.org/document/8763979" target="_blank" rel="noreferrer">Paper</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section white stage-2" id="stage-2">
+      <div class="shell">
+        <div class="section-head">
+          <div class="stage-index">02</div>
+          <div>
+            <p class="eyebrow">Hierarchical deployment</p>
+            <h2>Large-Model Context, Small-Model Control</h2>
+            <p class="section-intro">A semantic planner interprets goals and scene context. It never drives motors directly. Instead, it selects verified atomic skills whose preconditions, affordances and outcomes are grounded by perception and control models.</p>
+          </div>
+          <div class="verdict"><span>Deployment verdict</span><strong>Emerging generalization</strong></div>
+        </div>
+
+        <div class="architecture" aria-label="Hierarchical architecture">
+          <div><small>PERCEPTION LAYER</small><h3>Open-Set Scene Grounding</h3><p>Grounding DINO or a related open-vocabulary detector maps language entities to image regions. Pose and grasp models convert regions into executable geometry.</p><div class="stack"><span>RGB-D</span><span>Grounding DINO</span><span>Pose</span><span>AnyGrasp</span></div></div>
+          <div><small>CONTEXT LAYER</small><h3>Knowledge + Planning</h3><p>An LLM or semantic planner uses scene state, task history and a knowledge service to propose the next useful skill and verify its symbolic preconditions.</p><div class="stack"><span>LLM</span><span>Scene graph</span><span>Knowledge graph</span><span>Memory</span></div></div>
+          <div><small>EXECUTION LAYER</small><h3>Atomic Skill Library</h3><p>Versioned skills expose typed inputs, success predicates, safety envelopes and learned affordance scores. Execution remains deterministic and observable.</p><div class="stack"><span>Navigate</span><span>Pick</span><span>Place</span><span>Open</span><span>Recover</span></div></div>
+        </div>
+
+        <div class="two-col">
+          <div class="media-frame diagram"><img src="assets/saycan-architecture.png" alt="SayCan architecture combining language and affordance scores"><p class="caption"><strong>Representative work: SayCan.</strong> Language-model usefulness is multiplied by a skill affordance score, then the selected skill executes on the real robot.</p></div>
+          <div>
+            <h3 class="subhead">How to land it on a real robot</h3>
+            <ul class="point-list">
+              <li><span class="n">1</span><div><b>Keep the planner asynchronous</b><p>The semantic layer proposes goals; a real-time controller owns actuation and stop conditions.</p></div></li>
+              <li><span class="n">2</span><div><b>Make skills contractual</b><p>Every skill declares inputs, preconditions, timeout, success and recovery behavior.</p></div></li>
+              <li><span class="n">3</span><div><b>Ground every noun</b><p>Language entities must resolve to tracked scene objects before planning continues.</p></div></li>
+              <li><span class="n">4</span><div><b>Gate every transition</b><p>Perception and control confirm the world state after each skill, not only at task completion.</p></div></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="content-band three-col">
+          <div class="media-frame"><video controls muted loop playsinline preload="metadata" poster="assets/saycan-real-robot.gif"><source src="assets/demo_Large-Model Context, Small-Model Control.mp4" type="video/mp4"></video><p class="caption"><strong>Real deployment.</strong> A mobile manipulator executes long-horizon kitchen and office tasks from natural-language goals.</p></div>
+          <div class="media-frame diagram"><img src="assets/saycan-simulation.png" alt="SayCan open-source simulation environment"><p class="caption"><strong>Simulation asset.</strong> Simulation provides repeatable task variation and a place to train or validate affordances before real deployment.</p></div>
+          <div>
+            <h3 class="subhead">The data flywheel</h3>
+            <ul class="point-list">
+              <li><span class="n">A</span><div><b>Generate</b><p>Produce scene layouts, object variants and task graphs in simulation.</p></div></li>
+              <li><span class="n">B</span><div><b>Train</b><p>Improve open-set perception, affordances and skill policies.</p></div></li>
+              <li><span class="n">C</span><div><b>Mine</b><p>Convert real failures into new simulation scenarios and evaluation suites.</p></div></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="truth-box">
+          <h3>What improves over Stage 01</h3>
+          <p>The robot can reinterpret instructions, select different skill sequences and handle unseen object labels. Generalization remains bounded by the perception vocabulary, skill coverage, affordance calibration and the realism of synthetic assets.</p>
+        </div>
+
+        <div class="content-band">
+          <h3 class="subhead">Representative and supporting research</h3>
+          <div class="paper-line"><span class="tag">Representative</span><div><h3>Do As I Can, Not As I Say: Grounding Language in Robotic Affordances</h3><p>Ahn et al., CoRL 2022. High-level language planning grounded by pretrained atomic skills.</p></div><a class="source-link" href="https://say-can.github.io/" target="_blank" rel="noreferrer">Project + video</a></div>
+          <div class="paper-line"><span class="tag">Open-set vision</span><div><h3>Grounding DINO: Marrying DINO with Grounded Pre-Training for Open-Set Object Detection</h3><p>Liu et al., ECCV 2024.</p></div><a class="source-link" href="https://arxiv.org/abs/2303.05499" target="_blank" rel="noreferrer">Paper</a></div>
+          <div class="paper-line"><span class="tag">Synthetic data</span><div><h3>RoboGen: Automated Robot Learning via Generative Simulation</h3><p>Wang et al., ICML 2024. Automatically generates tasks, scenes, rewards and training experience.</p></div><a class="source-link" href="https://arxiv.org/abs/2311.01455" target="_blank" rel="noreferrer">Paper</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section stage-3" id="stage-3">
+      <div class="shell">
+        <div class="section-head">
+          <div class="stage-index">03</div>
+          <div>
+            <p class="eyebrow">Research frontier</p>
+            <h2>End-to-End Action, Backed by a World Model</h2>
+            <p class="section-intro">A vision-language-action model maps observations and instructions directly to robot actions. A predictive world model supplies imagined futures, counterfactual rollouts and scalable experience beyond expensive robot trajectories.</p>
+          </div>
+          <div class="verdict"><span>Deployment verdict</span><strong>Complete in theory, incomplete in industry</strong></div>
+        </div>
+
+        <h3 class="subhead">Target capability loop</h3>
+        <div class="pipeline">
+          <div class="pipeline-step"><em>01</em><b>Observe</b><p>Video, proprioception, language and interaction history.</p></div>
+          <div class="pipeline-step"><em>02</em><b>Propose</b><p>The VLA predicts candidate action chunks directly.</p></div>
+          <div class="pipeline-step"><em>03</em><b>Imagine</b><p>The world model rolls candidates into possible futures.</p></div>
+          <div class="pipeline-step"><em>04</em><b>Select</b><p>A verifier ranks progress, feasibility and safety.</p></div>
+          <div class="pipeline-step"><em>05</em><b>Act + Learn</b><p>Execute a short horizon, reobserve and add experience.</p></div>
+        </div>
+
+        <div class="two-col">
+          <div class="media-frame diagram"><img src="assets/gr1-architecture.png" alt="GR-1 model architecture"><p class="caption"><strong>Representative work: GR-1.</strong> A GPT-style model predicts robot actions and future images in one sequence model.</p></div>
+          <div>
+            <h3 class="subhead">Why egocentric human video matters</h3>
+            <ul class="point-list">
+              <li><span class="n">1</span><div><b>Human-object priors</b><p>First-person video exposes manipulation sequences, contact intent and object use at enormous scale.</p></div></li>
+              <li><span class="n">2</span><div><b>Future-state prediction</b><p>GR-1 pretrains on Ego4D video prediction before robot-data fine-tuning.</p></div></li>
+              <li><span class="n">3</span><div><b>Semantic diversity</b><p>Language-aligned human activity supports transfer to unseen scenes, phrasings and objects.</p></div></li>
+              <li><span class="n">4</span><div><b>Embodiment gap remains</b><p>Human hands, camera motion and action labels do not directly equal robot controls.</p></div></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="content-band three-col">
+          <div class="media-frame"><video controls muted loop playsinline preload="metadata" poster="assets/gr1-real-robot.png"><source src="assets/gr1-open-drawer.mp4" type="video/mp4"></video><p class="caption"><strong>Contact-rich action.</strong> GR-1 opens a real drawer from language-conditioned visual observations.</p></div>
+          <div class="media-frame"><video controls muted loop playsinline preload="metadata" poster="assets/gr1-results.png"><source src="assets/gr1-unseen-category.mp4" type="video/mp4"></video><p class="caption"><strong>Unseen category.</strong> A real-robot transfer example using an object category absent from robot fine-tuning.</p></div>
+          <div class="media-frame diagram"><img src="assets/gr1-real-robot.png" alt="GR-1 real robot setup and tasks"><p class="caption"><strong>Paper overview.</strong> Real-robot transport and articulated-object tasks test visual and language generalization.</p></div>
+          <aside class="rollout-note"><p>世界模型Rollout的能力来源于场景端第一视角的Egocentric数据</p></aside>
+        </div>
+
+        <div class="content-band evidence">
+          <blockquote>"No public system has yet closed this entire loop with production reliability across open-ended real environments."</blockquote>
+          <p>The pieces now exist separately: VLA control, action-conditioned video prediction, interactive generative simulators, egocentric pretraining and short-horizon rollout. The unsolved work is their dependable integration under latency, safety, calibration and long-horizon error accumulation.</p>
+        </div>
+
+        <div class="content-band two-col">
+          <div>
+            <h3 class="subhead">What academia demonstrates today</h3>
+            <ul class="point-list">
+              <li><span class="n">A</span><div><b>GR-1</b><p>Joint action and future-image prediction; Ego4D pretraining; CALVIN and real-robot evaluation.</p></div></li>
+              <li><span class="n">B</span><div><b>RT-2</b><p>Web-scale vision-language knowledge transferred into tokenized robot actions.</p></div></li>
+              <li><span class="n">C</span><div><b>UniSim</b><p>Interactive visual rollouts used for planning and reinforcement-learning policy training.</p></div></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="subhead">What blocks real deployment</h3>
+            <ul class="point-list">
+              <li><span class="n">1</span><div><b>Rollout fidelity</b><p>Small visual prediction errors compound into incorrect physical conclusions.</p></div></li>
+              <li><span class="n">2</span><div><b>Action grounding</b><p>Video futures must remain consistent with robot kinematics, contacts and control timing.</p></div></li>
+              <li><span class="n">3</span><div><b>Safety verification</b><p>Open-ended policies still need independent limits, collision monitors and stop systems.</p></div></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="content-band">
+          <h3 class="subhead">Representative and supporting research</h3>
+          <div class="paper-line"><span class="tag">Representative</span><div><h3>GR-1: Unleashing Large-Scale Video Generative Pre-Training for Visual Robot Manipulation</h3><p>Wu et al., ICLR 2024. Uses 800,000 Ego4D clips and predicts both actions and future frames.</p></div><a class="source-link" href="https://gr1-manipulation.github.io/" target="_blank" rel="noreferrer">Project + video</a></div>
+          <div class="paper-line"><span class="tag">VLA</span><div><h3>RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control</h3><p>Brohan et al., 2023.</p></div><a class="source-link" href="https://arxiv.org/abs/2307.15818" target="_blank" rel="noreferrer">Paper</a></div>
+          <div class="paper-line"><span class="tag">World model</span><div><h3>UniSim: Learning Interactive Real-World Simulators</h3><p>Yang et al., ICLR 2024 Outstanding Paper. Demonstrates long-horizon visual rollout, planning and RL transfer.</p></div><a class="source-link" href="https://universal-simulator.github.io/" target="_blank" rel="noreferrer">Project</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="roadmap" id="roadmap">
+      <div class="shell">
+        <p class="eyebrow">Recommended program</p>
+        <h2>Deploy in phases; keep one data backbone.</h2>
+        <div class="roadmap-grid">
+          <div class="roadmap-step"><time>PHASE A / NOW</time><h3>Ship the deterministic demo</h3><p>Build a reliable public demonstration and use it as the instrumentation baseline.</p><ul><li>AnyGrasp + calibrated RGB-D</li><li>Human-authored behavior tree</li><li>Confidence gates and recovery</li><li>Full episode logging</li></ul></div>
+          <div class="roadmap-step"><time>PHASE B / NEXT</time><h3>Add semantic planning</h3><p>Retain the same controller while adding open-set grounding and a planner over verified skills.</p><ul><li>Open-vocabulary perception</li><li>Typed atomic skill registry</li><li>Knowledge and scene state</li><li>Simulation task factory</li></ul></div>
+          <div class="roadmap-step"><time>PHASE C / RESEARCH</time><h3>Train predictive agents</h3><p>Use the accumulated episodes, failures and simulation assets to evaluate VLA and world-model loops.</p><ul><li>Egocentric video pretraining</li><li>Action-conditioned prediction</li><li>Short-horizon model-predictive rollout</li><li>Independent safety verifier</li></ul></div>
+        </div>
+        <div class="decision"><p><strong>Recommendation:</strong> commit the real robot to Stage 01, design the software and data contracts for Stage 02, and treat Stage 03 as an offline research track until its rollout fidelity and safety metrics beat the hierarchical baseline.</p><span class="date-pill">Evidence checked: 28 Jul 2026</span></div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="shell"><span>Lightwheel + NRP + STM + ICT: Real-Robot Deployment</span><span>ULD scope based on the shared Project Scope; research media credited to the AnyGrasp, SayCan and GR-1 teams.</span></div></footer>
+
+  <script>
+    const progress = document.querySelector('.progress');
+    const navLinks = [...document.querySelectorAll('.nav-links a')];
+    const sections = [...document.querySelectorAll('main > section[id]')];
+    const assetTrack = document.querySelector('.asset-track');
+    const mobileNav = document.querySelector('.mobile-nav');
+    if (assetTrack) assetTrack.insertAdjacentHTML('beforeend', assetTrack.innerHTML);
+    document.querySelectorAll('.mobile-nav-menu a').forEach(link => {
+      link.addEventListener('click', () => mobileNav?.removeAttribute('open'));
+    });
+
+    function updatePageState() {
+      const maxScroll = document.documentElement.scrollHeight - innerHeight;
+      const ratio = maxScroll > 0 ? scrollY / maxScroll : 0;
+      progress.style.width = `${Math.min(100, Math.max(0, ratio * 100))}%`;
+
+      let current = sections[0]?.id;
+      for (const section of sections) {
+        if (section.getBoundingClientRect().top <= 150) current = section.id;
+      }
+      const deploymentIds = new Set(['deployment', 'stage-1', 'stage-2', 'stage-3', 'roadmap']);
+      navLinks.forEach(link => {
+        const target = link.getAttribute('href');
+        const active = target === `#${current}` || (target === '#deployment' && deploymentIds.has(current));
+        link.classList.toggle('active', active);
+      });
+    }
+
+    addEventListener('scroll', updatePageState, { passive: true });
+    addEventListener('resize', updatePageState);
+    updatePageState();
+  </script>
+</body>
+</html>
